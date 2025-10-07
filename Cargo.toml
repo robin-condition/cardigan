@@ -1,0 +1,3 @@
+[workspace]
+resolver = "3"
+members = ["cardigan-incremental", "cardigan-demo", "cardigan-macros"]

@@ -1,0 +1,7 @@
+[package]
+name = "cardigan-incremental"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cardigan-macros = {path="../cardigan-macros"}
