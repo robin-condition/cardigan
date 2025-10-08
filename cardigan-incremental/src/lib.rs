@@ -128,6 +128,10 @@ impl<const ARG_COUNT: usize> GeneralVersionedComp<ARG_COUNT> {
         return false;
     }
 
+    pub fn check(&self, inputs: &[Version; ARG_COUNT]) -> bool {
+        self.input_versions.must_recompute(inputs)
+    }
+
     pub fn get_version(&self) -> Version {
         self.output_version.clone()
     }
