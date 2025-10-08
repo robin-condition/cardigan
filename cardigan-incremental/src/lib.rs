@@ -82,17 +82,17 @@ impl<T: PartialEq> Versioned<T> {
     }
 }
 
-pub struct VersionedComputationInfo<const ARG_COUNT: usize> {
+pub struct VersionedInputs<const ARG_COUNT: usize> {
     input_versions: [Version; ARG_COUNT],
 }
 
-impl<const ARG_COUNT: usize> Default for VersionedComputationInfo<ARG_COUNT> {
+impl<const ARG_COUNT: usize> Default for VersionedInputs<ARG_COUNT> {
     fn default() -> Self {
         Self { input_versions: [Default::default(); ARG_COUNT] }
     }
 }
 
-impl<const ARG_COUNT: usize> VersionedComputationInfo<ARG_COUNT> {
+impl<const ARG_COUNT: usize> VersionedInputs<ARG_COUNT> {
     pub fn must_recompute(&self, inputs: &[Version; ARG_COUNT]) -> bool {
         self.input_versions
             .iter()
@@ -110,6 +110,26 @@ impl<const ARG_COUNT: usize> VersionedComputationInfo<ARG_COUNT> {
             self.update(inputs);
         }
         res
+    }
+}
+
+#[derive(Default)]
+pub struct GeneralVersionedComp<const ARG_COUNT: usize> {
+    input_versions: VersionedInputs<ARG_COUNT>,
+    output_version: Version
+}
+
+impl<const ARG_COUNT: usize> GeneralVersionedComp<ARG_COUNT> {
+    pub fn check_and_update(&mut self, inputs: &[Version; ARG_COUNT]) -> bool {
+        if self.input_versions.check_and_update(inputs) {
+            self.output_version = self.output_version.next();
+            return true;
+        }
+        return false;
+    }
+
+    pub fn get_version(&self) -> Version {
+        self.output_version.clone()
     }
 }
 

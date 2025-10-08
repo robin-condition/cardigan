@@ -64,7 +64,7 @@ pub fn memoized(
     let versioned_comp_struct: ItemStruct = parse_quote! {
         #[derive(Default)]
         pub struct #comp_id {
-            input_versions: ::cardigan_incremental::VersionedComputationInfo<#input_count>,
+            input_versions: ::cardigan_incremental::VersionedInputs<#input_count>,
             output_value: ::cardigan_incremental::Versioned<#ret_type>
         }
     };

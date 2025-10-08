@@ -1,4 +1,4 @@
-use cardigan_incremental::{memoized, ReceivedVersioned, Versioned, VersionedComputationInfo};
+use cardigan_incremental::{memoized, ReceivedVersioned, Versioned, VersionedInputs};
 
 fn main() {
     println!("Hello, world!");
