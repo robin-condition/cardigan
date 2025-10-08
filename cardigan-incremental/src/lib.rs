@@ -103,6 +103,14 @@ impl<const ARG_COUNT: usize> VersionedComputationInfo<ARG_COUNT> {
     pub fn update(&mut self, inputs: &[Version; ARG_COUNT]) {
         self.input_versions = inputs.clone()
     }
+
+    pub fn check_and_update(&mut self, inputs: &[Version; ARG_COUNT]) -> bool {
+        let res = self.must_recompute(inputs);
+        if res {
+            self.update(inputs);
+        }
+        res
+    }
 }
 
 pub struct ReceivedVersioned<T> {

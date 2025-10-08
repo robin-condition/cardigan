@@ -79,14 +79,11 @@ pub fn memoized(
 
             pub async fn compute(#wrapper_fn_args) -> &::cardigan_incremental::Versioned<#ret_type> {
                 let versions = [#(* #inp_names .version()),*];
-                if !self.input_versions.must_recompute(&versions) {
-                    return &self.output_value;
+                if self.input_versions.check_and_update(&versions) {
+                    let recomped = self.internal_recomp(#(#inp_names),*).await;
+                    self.output_value.set_to_next(recomped);
                 }
 
-                let recomped = self.internal_recomp(#(#inp_names),*).await;
-
-                self.output_value.set_to_next(recomped);
-                self.input_versions.update(&versions);
                 return &self.output_value;
             }
 
