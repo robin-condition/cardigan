@@ -89,6 +89,10 @@ pub fn memoized(
                 self.input_versions.update(&versions);
                 return &self.output_value;
             }
+
+            pub fn get_result(&self) -> &::cardigan_incremental::Versioned<#ret_type> {
+                &self.output_value
+            }
         }
     );
 
