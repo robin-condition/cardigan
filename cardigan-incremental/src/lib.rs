@@ -70,6 +70,14 @@ impl<T> Versioned<T> {
     }
 }
 
+impl<T: PartialEq> Versioned<T> {
+    pub fn set_to_next_if_unequal(&mut self, val: Option<T>) {
+        if val != *self.get_value() {
+            self.set_to_next(val);
+        }
+    }
+}
+
 pub struct VersionedComputationInfo<const ARG_COUNT: usize> {
     input_versions: [Version; ARG_COUNT],
 }
