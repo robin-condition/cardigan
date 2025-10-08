@@ -69,7 +69,7 @@ impl<T> Versioned<T> {
         }, id: self.id }
     }
 
-    pub fn as_ref(&self) -> Versioned<&T> {
+    pub fn my_as_ref(&self) -> Versioned<&T> {
         Versioned { value: self.value.as_ref(), id: self.id }
     }
 }
