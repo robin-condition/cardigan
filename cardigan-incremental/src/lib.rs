@@ -68,6 +68,10 @@ impl<T> Versioned<T> {
             None => None,
         }, id: self.id }
     }
+
+    pub fn as_ref(&self) -> Versioned<&T> {
+        Versioned { value: self.value.as_ref(), id: self.id }
+    }
 }
 
 impl<T: PartialEq> Versioned<T> {
