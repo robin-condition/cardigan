@@ -10,7 +10,7 @@ pub struct Version {
 }
 
 impl Version {
-    const MAX_ID: usize = 1 << 60;
+    const MAX_ID: usize = 1 << 30;
 
     pub fn first() -> Self {
         Version { id: 0 }
